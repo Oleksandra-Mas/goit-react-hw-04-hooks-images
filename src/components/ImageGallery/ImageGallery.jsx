@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import Spinner from '../Loader/Loader';
@@ -15,92 +15,89 @@ const STATUS = {
     resolved: 'resolved',
 };
 
-export default class ImageGallery extends Component {
-    state = { status: STATUS.idle, page: 1 };
-    async componentDidUpdate(prevProps, prevState) {
-        const nextFilter = this.props.filter;
-        const curFilter = prevProps.filter;
-        const nextPage = this.state.page;
-        const curPage = prevState.page;
-        if (curFilter !== nextFilter) {
-            this.setState({ status: STATUS.pending });
-            apiService.searchQuery = nextFilter;
-            apiService.resetPage();
-            const photos = await apiService.searchPhoto();
-            if (photos.total === 0) {
-                this.setState({ status: STATUS.idle });
+export default function ImageGallery({ toggleModal, filter }) {
+    const [status, setStatus] = useState(STATUS.idle);
+    const [photos, setPhotos] = useState([]);
+    const [page, setPage] = useState(1);
+    useEffect(() => {
+        if (!filter) {
+            return;
+        }
+        setStatus(STATUS.pending);
+        apiService.searchQuery = filter;
+        apiService.resetPage();
+        apiService.searchPhoto().then(newPhotos => {
+            if (newPhotos.total === 0) {
+                setStatus(STATUS.idle);
                 return toast.warning('Nothing found');
             }
-            this.setState({ photos: photos.hits, status: STATUS.resolved });
-        }
+            setPhotos(newPhotos.hits);
+            setStatus(STATUS.resolved);
+        });
+    }, [filter]);
 
-        if (nextPage !== curPage && curFilter === nextFilter) {
-            this.setState({ status: STATUS.pending });
-            this.smoothScroll();
-            const newPhotos = await apiService.searchPhoto();
+    useEffect(() => {
+        if (page === 1) {
+            return;
+        }
+        setStatus(STATUS.pending);
+
+        apiService.searchPhoto().then(newPhotos => {
             if (newPhotos.total === 0) {
-                this.setState({ status: STATUS.idle });
+                setStatus(STATUS.idle);
                 return toast.warning('Nothing else found');
             }
-            this.setState({
-                photos: [...prevState.photos, ...newPhotos.hits],
-                status: STATUS.resolved,
-            });
-        }
-    }
+            setPhotos(prevPhotos => [...prevPhotos, ...newPhotos.hits]);
+            setStatus(STATUS.resolved);
+            smoothScroll();
+        });
+    }, [page]);
 
-    onClick = () => {
+    const onClick = () => {
         apiService.incrementPage();
-        this.setState({ page: apiService.page });
+        setPage(apiService.page);
     };
 
-    smoothScroll = () => {
+    const smoothScroll = () => {
         setTimeout(() => {
             window.scrollBy({
                 top: document.documentElement.clientHeight,
                 behavior: 'smooth',
             });
-        }, 1000);
+        }, 400);
     };
 
-    render() {
-        const { photos, status, page } = this.state;
-        const { toggleModal } = this.props;
-        if (status === STATUS.idle) {
-            return null;
-        }
-        if (
-            (status === STATUS.pending && page !== 1) ||
-            status === STATUS.resolved
-        ) {
-            return (
-                <>
-                    <ul className={styles.ImageGallery}>
-                        {photos.map(
-                            (
-                                { id, largeImageURL, webformatURL, tags },
-                                index,
-                            ) => (
-                                <ImageGalleryItem
-                                    key={index}
-                                    webImage={webformatURL}
-                                    largeImage={largeImageURL}
-                                    tags={tags}
-                                    toggleModal={toggleModal}
-                                />
-                            ),
-                        )}
-                    </ul>
-                    {status === STATUS.resolved ? (
-                        <Button onClick={this.onClick} />
-                    ) : (
-                        <Spinner />
+    if (status === STATUS.idle) {
+        return null;
+    }
+    if (
+        (status === STATUS.pending && page !== 1) ||
+        status === STATUS.resolved
+    ) {
+        return (
+            <>
+                <ul className={styles.ImageGallery}>
+                    {photos.map(
+                        ({ id, largeImageURL, webformatURL, tags }, index) => (
+                            <ImageGalleryItem
+                                key={index}
+                                webImage={webformatURL}
+                                largeImage={largeImageURL}
+                                tags={tags}
+                                toggleModal={toggleModal}
+                            />
+                        ),
                     )}
-                </>
-            );
-        } else if (status === STATUS.pending) {
-            return <Spinner />;
-        }
+                </ul>
+                {status === STATUS.resolved ? (
+                    <Button onClick={onClick} />
+                ) : (
+                    <Spinner />
+                )}
+            </>
+        );
+    } else if (status === STATUS.pending) {
+        return <Spinner />;
     }
 }
 ImageGallery.propTypes = {
