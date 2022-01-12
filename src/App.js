@@ -12,8 +12,8 @@ export default function App() {
     const [showModal, setShowModal] = useState(false);
 
     const toggleModal = data => {
-        setSearchImage(data);
         setShowModal(prevShowModal => !prevShowModal);
+        setSearchImage(data);
     };
     return (
         <div className="App">
