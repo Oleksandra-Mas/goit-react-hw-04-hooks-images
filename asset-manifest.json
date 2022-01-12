@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/goit-react-hw-04-hooks-images/static/css/main.d6b78105.chunk.css",
-    "main.js": "/goit-react-hw-04-hooks-images/static/js/main.5edacefc.chunk.js",
-    "main.js.map": "/goit-react-hw-04-hooks-images/static/js/main.5edacefc.chunk.js.map",
+    "main.css": "/goit-react-hw-04-hooks-images/static/css/main.92437585.chunk.css",
+    "main.js": "/goit-react-hw-04-hooks-images/static/js/main.6204fc32.chunk.js",
+    "main.js.map": "/goit-react-hw-04-hooks-images/static/js/main.6204fc32.chunk.js.map",
     "runtime-main.js": "/goit-react-hw-04-hooks-images/static/js/runtime-main.debaf196.js",
     "runtime-main.js.map": "/goit-react-hw-04-hooks-images/static/js/runtime-main.debaf196.js.map",
     "static/css/2.f4c56af9.chunk.css": "/goit-react-hw-04-hooks-images/static/css/2.f4c56af9.chunk.css",
-    "static/js/2.16fe6910.chunk.js": "/goit-react-hw-04-hooks-images/static/js/2.16fe6910.chunk.js",
-    "static/js/2.16fe6910.chunk.js.map": "/goit-react-hw-04-hooks-images/static/js/2.16fe6910.chunk.js.map",
+    "static/js/2.d3e50a13.chunk.js": "/goit-react-hw-04-hooks-images/static/js/2.d3e50a13.chunk.js",
+    "static/js/2.d3e50a13.chunk.js.map": "/goit-react-hw-04-hooks-images/static/js/2.d3e50a13.chunk.js.map",
     "index.html": "/goit-react-hw-04-hooks-images/index.html",
     "static/css/2.f4c56af9.chunk.css.map": "/goit-react-hw-04-hooks-images/static/css/2.f4c56af9.chunk.css.map",
-    "static/css/main.d6b78105.chunk.css.map": "/goit-react-hw-04-hooks-images/static/css/main.d6b78105.chunk.css.map",
-    "static/js/2.16fe6910.chunk.js.LICENSE.txt": "/goit-react-hw-04-hooks-images/static/js/2.16fe6910.chunk.js.LICENSE.txt",
-    "static/media/Searchbar.module.scss": "/goit-react-hw-04-hooks-images/static/media/icons-search.87409434.svg"
+    "static/css/main.92437585.chunk.css.map": "/goit-react-hw-04-hooks-images/static/css/main.92437585.chunk.css.map",
+    "static/js/2.d3e50a13.chunk.js.LICENSE.txt": "/goit-react-hw-04-hooks-images/static/js/2.d3e50a13.chunk.js.LICENSE.txt",
+    "static/media/Searchbar.module.css": "/goit-react-hw-04-hooks-images/static/media/icons-search.87409434.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.debaf196.js",
     "static/css/2.f4c56af9.chunk.css",
-    "static/js/2.16fe6910.chunk.js",
-    "static/css/main.d6b78105.chunk.css",
-    "static/js/main.5edacefc.chunk.js"
+    "static/js/2.d3e50a13.chunk.js",
+    "static/css/main.92437585.chunk.css",
+    "static/js/main.6204fc32.chunk.js"
   ]
 }
