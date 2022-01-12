@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import Spinner from '../Loader/Loader';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
-import styles from './ImageGallery.module.scss';
+import styles from './ImageGallery.module.css';
 import ApiService from '../../services/apiService';
 import Button from '../Button/Button';
 const apiService = new ApiService();

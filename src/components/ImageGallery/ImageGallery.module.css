@@ -1,6 +1,3 @@
-/*
- * Стили компонента ImageGallery
- */
 .ImageGallery {
     display: grid;
     max-width: calc(100vw - 48px);

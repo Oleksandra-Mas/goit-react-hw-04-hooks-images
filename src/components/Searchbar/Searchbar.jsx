@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import styles from './Searchbar.module.scss';
+import styles from './Searchbar.module.css';
 export default function Searchbar({ onSubmit }) {
     const [filter, setFilter] = useState('');
     const handleInputChange = event => {
