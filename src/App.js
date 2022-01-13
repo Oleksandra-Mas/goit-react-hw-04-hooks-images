@@ -15,6 +15,7 @@ const STATUS = {
     idle: 'idle',
     pending: 'pending',
     resolved: 'resolved',
+    end: 'end',
 };
 
 export default function App() {
@@ -48,7 +49,7 @@ export default function App() {
         setStatus(STATUS.pending);
         apiService.searchQuery = filter;
         apiService.searchPhoto().then(newPhotos => {
-            if (newPhotos.total === 0) {
+            if (newPhotos.hits.length === 0) {
                 setStatus(STATUS.idle);
                 return toast.warning('Nothing found');
             }
@@ -63,8 +64,8 @@ export default function App() {
         }
         setStatus(STATUS.pending);
         apiService.searchPhoto().then(newPhotos => {
-            if (newPhotos.total === 0) {
-                setStatus(STATUS.idle);
+            if (newPhotos.hits.length === 0) {
+                setStatus(STATUS.end);
                 return toast.warning('Nothing else found');
             }
             setPhotos(prevPhotos => [...prevPhotos, ...newPhotos.hits]);
@@ -82,7 +83,8 @@ export default function App() {
         <div className="App">
             <Searchbar onSubmit={setFilter} />
             {((status === STATUS.pending && page !== 1) ||
-                status === STATUS.resolved) && (
+                status === STATUS.resolved ||
+                status === STATUS.end) && (
                 <ImageGallery toggleModal={toggleModal} photos={photos} />
             )}
             {status === STATUS.resolved && <Button onClick={onLoadMoreClick} />}
